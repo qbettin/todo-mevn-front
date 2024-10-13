@@ -42,7 +42,7 @@ export const registerUser = async (username: string, password: string): Promise<
 
 export const loginUser = async (username: string, password: string): Promise<void> => {
     try {
-        const response = await axiosInstance.post(`${BASE_URL}/auth/login`, { username, password }); // Use axios instead of axiosInstance
+        const response = await axiosInstance.post(`/auth/login`, { username, password }); // Use axios instead of axiosInstance
         const { token } = response.data;
         localStorage.setItem('token', token);
         console.log('Login successful, token stored in local storage');
