@@ -3,7 +3,7 @@ import { Todo } from '@/entity/todo' // Import the types
 
 // Define the base URL for the backend API
 //TODO change this to backends deployed url
-const BASE_URL = process.env.VUE_APP_API_URL || 'http://localhost:5000/api'; // Adjust this based on your backend's deployed URL
+const BASE_URL = process.env.VUE_APP_API_URL || 'http://localhost:5000'; // Adjust this based on your backend's deployed URL
 
 // Utility function to get the authentication token
 const getAuthToken = () => {
