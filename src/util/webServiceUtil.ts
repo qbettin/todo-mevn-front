@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Todo } from '@/entity/todo' // Import the types
 
 // Define the base URL for the backend API
-const BASE_URL = process.env.VUE_APP_API_URL || 'https://localhost:5000'; 
+const BASE_URL = process.env.VUE_APP_API_URL || 'https://todo-mevn-back.vercel.app'; 
 
 // Utility function to get the authentication token
 const getAuthToken = () => {
