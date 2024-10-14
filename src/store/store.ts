@@ -37,7 +37,6 @@ export default createStore({
         async login({ commit }, { username, password }) {
             await serviceUtil.loginUser(username, password);
             commit('setUser', username);
-            console.log(this.state.currentUser);
         },
         async register({ commit }, { username, password }) {
             await serviceUtil.registerUser(username, password);
@@ -52,22 +51,17 @@ export default createStore({
         },
         async createTodo({ commit }, task: string) {
             const todo = await serviceUtil.createTodo(task);
-            console.log(todo);
             if (todo !== undefined || null) {
                 commit('addTodo', todo);
             }
-            console.log(this.state.todos);
         },
         async editTodo({ commit }, { id, task, completed }: { id: string; task: string; completed: boolean }) {
             const updatedTodo = await serviceUtil.editTodo(id, task, completed);
-            console.log(updatedTodo);
             commit('updateTodo', updatedTodo);
         },
         async deleteTodo({ commit }, id: string) {
-            console.log(this.state.todos, 'before delete');
             await serviceUtil.deleteTodo(id);
             commit('removeTodo', id);
-            console.log(this.state.todos, 'after delete');
         },
     },
     getters: {

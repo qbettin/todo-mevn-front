@@ -1,7 +1,6 @@
 import * as webService from './webServiceUtil';
 import { Todo } from '@/entity/todo';
 
-// Example service functions
 export const registerUser = async (username: string, password: string): Promise<void> => {
     await webService.registerUser(username, password);
 };

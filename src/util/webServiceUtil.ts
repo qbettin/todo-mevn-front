@@ -2,8 +2,7 @@ import axios from 'axios';
 import { Todo } from '@/entity/todo' // Import the types
 
 // Define the base URL for the backend API
-//TODO change this to backends deployed url
-const BASE_URL = process.env.VUE_APP_API_URL || 'http://localhost:5000'; // Adjust this based on your backend's deployed URL
+const BASE_URL = process.env.VUE_APP_API_URL || 'http://localhost:5000'; 
 
 // Utility function to get the authentication token
 const getAuthToken = () => {
@@ -24,7 +23,6 @@ axiosInstance.interceptors.request.use((config) => {
     
     // Skip adding the token for login and registration routes
     if (config.url !== '/auth/login' && config.url !== '/auth/register' && token) {
-        console.log(token, "token");
       config.headers.Authorization = `Bearer ${token}`;
     }
   
@@ -42,7 +40,7 @@ export const registerUser = async (username: string, password: string): Promise<
 
 export const loginUser = async (username: string, password: string): Promise<void> => {
     try {
-        const response = await axiosInstance.post(`/auth/login`, { username, password }); // Use axios instead of axiosInstance
+        const response = await axiosInstance.post(`/auth/login`, { username, password });
         const { token } = response.data;
         localStorage.setItem('token', token);
         console.log('Login successful, token stored in local storage');
@@ -54,8 +52,13 @@ export const loginUser = async (username: string, password: string): Promise<voi
 
 // To-Do Operations
 export const loadTodos = async (): Promise<Todo[]> => {
-    const response = await axiosInstance.get('/todos');
-    return response.data;
+    try {
+        const response = await axiosInstance.get('/todos');
+        return response.data;
+    } catch (error) {
+        console.error('Error loading todos');
+        throw error;
+    }
 };
 
 export const createTodo = async (task: string): Promise<Todo> => {
@@ -69,7 +72,6 @@ export const editTodo = async (id: string, task: string, completed: boolean): Pr
 };
 
 export const deleteTodo = async (id: string): Promise<{ message: string }> => {
-    console.log("deleting  todo ", id)
     const response = await axiosInstance.delete(`/todos/${id}`);
     return response.data;
 };
